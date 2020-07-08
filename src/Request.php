@@ -57,7 +57,8 @@ class Request
      * 
      * */
     protected function nonce(){
-        $this->nonce=time();
+        $mt = explode(' ', microtime());
+        $this->nonce = $mt[1].substr($mt[0], 2, 6);
     }
     
     /**
@@ -85,12 +86,7 @@ class Request
      * */
     protected function headers(){
         $this->headers= [
-            'Content-Type' => 'application/json',
-            
-            'CB-ACCESS-KEY'        => $this->key,
-            'CB-ACCESS-SIGN'       => $this->signature,
-            'CB-ACCESS-TIMESTAMP'  => $this->nonce,
-            'CB-ACCESS-PASSPHRASE' => $this->passphrase,
+            'Content-Type' => 'application/x-www-form-urlencoded',
         ];
     }
     
