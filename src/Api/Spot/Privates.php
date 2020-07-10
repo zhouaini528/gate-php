@@ -7,7 +7,7 @@ namespace Lin\Gate\Api\Spot;
 
 use Lin\Gate\Request;
 
-class Order extends Request
+class Privates extends Request
 {
     /**
      * POST /orders

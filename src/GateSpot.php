@@ -16,7 +16,7 @@ class GateSpot
     
     protected $options=[];
     
-    function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://api.pro.Gate.com'){
+    function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://api.gateio.la'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
