@@ -7,6 +7,9 @@ namespace Lin\Gate;
 
 
 
+use Lin\Gate\Api\Spot\Publics;
+use Lin\Gate\Api\Spot\Privates;
+
 class GateSpot
 {
     protected $key;
@@ -46,7 +49,15 @@ class GateSpot
     /**
      * 
      * */
-    function account(){
-        return new Account($this->init());
+    function publics(){
+        $this->host='https://data.gateio.la';
+        return new Publics($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function privates(){
+        return new Privates($this->init());
     }
 }

@@ -65,20 +65,10 @@ class Request
      * 
      * */
     protected function signature(){
-        $body='';
-        $path=$this->type.$this->path;
-        
-        if (!empty($this->data)) {
-            if($this->type=='GET') {
-                $path.='?'.http_build_query($this->data);
-            }else{
-                $body=json_encode($this->data);
-            }
+        if($this->type=='POST'){
+            $data = http_build_query($this->data, '', '&');
+            $this->signature = hash_hmac('sha512', urldecode($data), $this->secret);
         }
-        
-        $plain = $this->nonce . $path . $body;
-        
-        $this->signature = base64_encode(hash_hmac('sha256', $plain, base64_decode($this->secret), true));
     }
     
     /**
@@ -118,12 +108,10 @@ class Request
         
         $url=$this->host.$this->path;
         
-        if(!empty($this->data)) {
-            if($this->type=='GET') {
-                $url.='?'.http_build_query($this->data);
-            }else{
-                $this->options['body']=json_encode($this->data);
-            }
+        if($this->type=='GET') {
+            $url.='?'.http_build_query($this->data);
+        }else{
+            $this->options['body']=json_encode($this->data);
         }
         
         $response = $client->request($this->type, $url, $this->options);
