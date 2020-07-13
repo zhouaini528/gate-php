@@ -66,6 +66,7 @@ class Request
      * */
     protected function signature(){
         if($this->type=='POST'){
+            $this->data['nonce']=$this->nonce;
             $data = http_build_query($this->data, '', '&');
             $this->signature = hash_hmac('sha512', urldecode($data), $this->secret);
         }
@@ -77,6 +78,8 @@ class Request
     protected function headers(){
         $this->headers= [
             'Content-Type' => 'application/x-www-form-urlencoded',
+            'KEY'=>$this->key,
+            'SIGN'=>$this->signature,
         ];
     }
     
@@ -111,7 +114,7 @@ class Request
         if($this->type=='GET') {
             $url.='?'.http_build_query($this->data);
         }else{
-            $this->options['body']=json_encode($this->data);
+            $this->options['form_params']=$this->data;
         }
         
         $response = $client->request($this->type, $url, $this->options);
