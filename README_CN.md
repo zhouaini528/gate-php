@@ -48,3 +48,81 @@ $gate->setOptions([
     //'verify'=>false,
 ]);
 ```
+
+### 现货公共API
+
+Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/public.php)
+
+```php
+$gate=new GateSpot();
+
+try {
+    $result=$gate->publics()->pairs();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
+try {
+    $result=$gate->publics()->marketinfo();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+### 现货私有API
+```php
+$gate=new GateSpot($key,$secret);
+
+//bargaining transaction
+try {
+    $result=$gate->privates()->buy([
+        'currencyPair'=>'btc_usdt',
+        'rate'=>'3000',
+        'amount'=>'0.01',
+        //'text'=>'t-xxxxxxxxxx'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//track the order
+try {
+    $result=$gate->privates()->getOrder([
+        'currencyPair'=>'btc_usdt',
+        'orderNumber'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//cancellation of order
+try {
+    $result=$gate->privates()->cancelOrder([
+        'currencyPair'=>'btc_usdt',
+        'orderNumber'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//more
+try {
+    $result=$gate->privates()->balances();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->privates()->depositAddress(['currency'=>'BTC']);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
