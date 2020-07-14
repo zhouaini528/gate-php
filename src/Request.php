@@ -30,6 +30,8 @@ class Request
     
     protected $options=[];
     
+    protected $vision='';
+    
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
@@ -38,6 +40,7 @@ class Request
         $this->host=$data['host'] ?? '';
         
         $this->options=$data['options'] ?? [];
+        $this->vision=$data['vision'] ?? '';
     }
     
     /**
@@ -57,19 +60,51 @@ class Request
      * 
      * */
     protected function nonce(){
-        $mt = explode(' ', microtime());
-        $this->nonce = $mt[1].substr($mt[0], 2, 6);
+        if($this->vision=='v2'){
+            $mt = explode(' ', microtime());
+            $this->nonce = $mt[1].substr($mt[0], 2, 6);
+        }else{
+            $this->nonce = time();
+        }
     }
     
     /**
      * 
      * */
     protected function signature(){
-        if($this->type=='POST'){
-            $this->data['nonce']=$this->nonce;
-            $data = http_build_query($this->data, '', '&');
-            $this->signature = hash_hmac('sha512', urldecode($data), $this->secret);
+        if($this->vision=='v2'){
+            if($this->type=='POST'){
+                $this->data['nonce']=$this->nonce;
+                $data = http_build_query($this->data, '', '&');
+                $this->signature = hash_hmac('sha512', urldecode($data), $this->secret);
+            }
+        }else{
+            //v4
+            /*
+            $fmt = "%s\n%s\n%s\n%s\n%s";
+            $hashed_payload = hash("sha512", ($payload != null) ? $payload : "");
+            $signature_string = sprintf($fmt, $method, "/api/v4" . $resourcePath,
+                ($query_string != null) ? urldecode($query_string) : "",
+                $hashed_payload, $this->nonce);
+            $signature = hash_hmac("sha512", $signature_string, $this->config->getSecret());
+            */
+            
+            
+            
+            $fmt = "%s\n%s\n%s\n%s\n%s";
+            
+            $data='';
+            if($this->type=='POST'){
+                $data=json_encode($this->data);
+            }else{
+                $query_string = http_build_query($this->data, '', '&');
+            }
+            $hashed_payload = hash("sha512", $data);
+            $signature_string = sprintf($fmt, $this->type, $this->path,$query_string,$hashed_payload, $this->nonce);
+            
+            $this->signature = hash_hmac("sha512", $signature_string, $this->secret);
         }
+        
     }
     
     /**
@@ -77,10 +112,16 @@ class Request
      * */
     protected function headers(){
         $this->headers= [
-            'Content-Type' => 'application/x-www-form-urlencoded',
             'KEY'=>$this->key,
             'SIGN'=>$this->signature,
         ];
+        
+        if($this->vision=='v2'){
+            $this->headers['Content-Type']='application/x-www-form-urlencoded';
+        }else{
+            $this->headers['Content-Type']='application/json';
+            $this->headers['Timestamp']=$this->nonce;
+        }
     }
     
     /**
@@ -111,10 +152,12 @@ class Request
         
         $url=$this->host.$this->path;
         
-        if($this->type=='GET') {
-            $url.='?'.http_build_query($this->data);
+        if($this->vision=='v2'){
+            if($this->type=='GET') $url.='?'.http_build_query($this->data);
+            else $this->options['form_params']=$this->data;
         }else{
-            $this->options['form_params']=$this->data;
+            if($this->type=='POST') $this->options['body']=json_encode($this->data);
+            else $url.='?'.http_build_query($this->data);
         }
         
         $response = $client->request($this->type, $url, $this->options);

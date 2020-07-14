@@ -29,6 +29,16 @@ class GateSpot
     /**
      * 
      * */
+    private function vision(){
+        if(stripos($this->key,'-')!==0){
+            return 'v2';
+        }
+        return 'v4';
+    }
+    
+    /**
+     * 
+     * */
     private function init(){
         return [
             'key'=>$this->key,
@@ -36,6 +46,7 @@ class GateSpot
             'passphrase'=>$this->passphrase,
             'host'=>$this->host,
             'options'=>$this->options,
+            'vision'=>$this->vision(),
         ];
     }
     
