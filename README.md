@@ -62,7 +62,7 @@ $gate->setOptions([
 
 ### Spot Public API V2
 
-Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot_v2/public.php)
+Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot_v2/publics.php)
 
 ```php
 $gate=new GateSpotV2();
