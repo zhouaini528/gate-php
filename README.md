@@ -6,6 +6,8 @@ All interface methods are initialized the same as those provided by Bitmex. See 
 
 Most of the interface is now complete, and the user can continue to extend it based on my design, working with me to improve it.
 
+[中文文档](https://github.com/zhouaini528/gate-php/blob/master/README_CN.md)
+
 ### Other exchanges API
 
 [Exchanges](https://github.com/zhouaini528/exchanges-php) It includes all of the following exchanges and is highly recommended.
@@ -59,6 +61,97 @@ $gate->setOptions([
     //'verify'=>false,
 ]);
 ```
+
+
+
+###Market API V4
+
+Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/market.php)
+
+```php
+try {
+    $result=$gate->market()->getTickers();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getOrderBook([
+        'currency_pair'=>'BTC_USDT'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getTrades([
+        'currency_pair'=>'BTC_USDT'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getCandlesticks([
+        'currency_pair'=>'BTC_USDT'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+###Order API V4
+
+Order API V4 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/order.php)
+
+```php
+//bargaining transaction
+try {
+    $result=$gate->order()->post([
+        //'text'=>'t-xxxxxxxxxx',//custom ID
+        'currency_pair'=>'BTC_USDT',
+        'type'=>'limit',
+        'side'=>'buy',
+        'amount'=>'0.1',
+        'price'=>'4000',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//track the order
+try {
+    $result=$gate->order()->get([
+        'currency_pair'=>'BTC_USDT',
+        'order_id'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//cancellation of order
+try {
+    $result=$gate->order()->delete([
+        'currency_pair'=>'BTC_USDT',
+        'order_id'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+More Test [more](https://github.com/zhouaini528/gate-php/tree/master/tests/spot)
+
+More Api [more](https://github.com/zhouaini528/gate-php/tree/master/src/Api/Spot)
+
+
 
 ### Spot Public API V2
 
@@ -140,3 +233,7 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 ```
+
+More Test [more](https://github.com/zhouaini528/gate-php/tree/master/tests/spot_v2)
+
+More Api [more](https://github.com/zhouaini528/gate-php/tree/master/src/Api/SpotV2)

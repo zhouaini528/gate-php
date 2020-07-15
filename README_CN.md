@@ -1,3 +1,13 @@
+### 建议优阅读官方文档
+
+官方文档地址 [API2](https://www.gatecn.io/api2) [API4](https://www.gatecn.io/docs/futures/api/index.html)
+
+所有的接口方式初始化与gate提供的接口方式一样，详细请看[src/api](https://github.com/zhouaini528/gate-php/tree/master/src/Api)
+
+大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
+
+[English Document](https://github.com/zhouaini528/gate-php/blob/master/README.md)
+
 ### 其他交易所API
 
 [Exchanges](https://github.com/zhouaini528/exchanges-php) 它包含以下所有交易所，强烈推荐使用该SDK。
