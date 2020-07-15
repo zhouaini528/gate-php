@@ -4,12 +4,12 @@
  * @author lin <465382251@qq.com>
  * */
 
-use Lin\Gate\GateSpot;
+use Lin\Gate\GateSpotV2;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
 
-$gate=new GateSpot();
+$gate=new GateSpotV2();
 
 //You can set special needs
 $gate->setOptions([

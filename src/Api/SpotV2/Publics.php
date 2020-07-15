@@ -3,7 +3,7 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Lin\Gate\Api\Spot;
+namespace Lin\Gate\Api\SpotV2;
 
 use Lin\Gate\Request;
 

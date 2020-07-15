@@ -79,32 +79,18 @@ class Request
                 $this->signature = hash_hmac('sha512', urldecode($data), $this->secret);
             }
         }else{
-            //v4
-            /*
-            $fmt = "%s\n%s\n%s\n%s\n%s";
-            $hashed_payload = hash("sha512", ($payload != null) ? $payload : "");
-            $signature_string = sprintf($fmt, $method, "/api/v4" . $resourcePath,
-                ($query_string != null) ? urldecode($query_string) : "",
-                $hashed_payload, $this->nonce);
-            $signature = hash_hmac("sha512", $signature_string, $this->config->getSecret());
-            */
-            
-            
-            
             $fmt = "%s\n%s\n%s\n%s\n%s";
             
-            $data='';
             if($this->type=='POST'){
                 $data=json_encode($this->data);
             }else{
-                $query_string = http_build_query($this->data, '', '&');
+                $query_string = empty($this->data) ? '' : http_build_query($this->data, '', '&') ;
             }
-            $hashed_payload = hash("sha512", $data);
-            $signature_string = sprintf($fmt, $this->type, $this->path,$query_string,$hashed_payload, $this->nonce);
+            $hashed_payload = hash("sha512", $data ?? '');
+            $signature_string = sprintf($fmt, $this->type, $this->path,$query_string ?? '',$hashed_payload, $this->nonce);
             
             $this->signature = hash_hmac("sha512", $signature_string, $this->secret);
         }
-        
     }
     
     /**

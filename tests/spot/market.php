@@ -9,9 +9,7 @@ use Lin\Gate\GateSpot;
 require __DIR__ .'../../../vendor/autoload.php';
 
 
-include 'key_secret.php';
-
-$gate=new GateSpot($key,$secret);
+$gate=new GateSpot();
 
 //You can set special needs
 $gate->setOptions([
@@ -31,48 +29,33 @@ $gate->setOptions([
 ]);
 
 try {
-    $result=$gate->privates()->balances();
+    $result=$gate->market()->getTickers();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$gate->privates()->depositAddress(['currency'=>'BTC']);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-//bargaining transaction
-try {
-    $result=$gate->privates()->buy([
-        'currencyPair'=>'btc_usdt',
-        'rate'=>'3000',
-        'amount'=>'0.01',
-        //'text'=>'t-xxxxxxxxxx'
+    $result=$gate->market()->getOrderBook([
+        'currency_pair'=>'BTC_USDT'
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//track the order
 try {
-    $result=$gate->privates()->getOrder([
-        'currencyPair'=>'btc_usdt',
-        'orderNumber'=>'xxxxxxxxxx',
+    $result=$gate->market()->getTrades([
+        'currency_pair'=>'BTC_USDT'
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//cancellation of order
 try {
-    $result=$gate->privates()->cancelOrder([
-        'currencyPair'=>'btc_usdt',
-        'orderNumber'=>'xxxxxxxxxx',
+    $result=$gate->market()->getCandlesticks([
+        'currency_pair'=>'BTC_USDT'
     ]);
     print_r($result);
 }catch (\Exception $e){

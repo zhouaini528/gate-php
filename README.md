@@ -30,7 +30,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bittrex](https://github.com/zhouaini528/bittrex-php)
 
-[Gate](https://github.com/zhouaini528/gate-php)
+[Gate](https://github.com/zhouaini528/gate-php)   Support V2/V4
 
 #### Installation
 ```
@@ -39,7 +39,8 @@ composer require linwj/gate
 
 Support for more request Settings
 ```php
-$gate=new Gate();
+$gate=new GateSpot();//defult api v4
+$gate=new GateSpotV2();//defult api v2
 
 //You can set special needs
 $gate->setOptions([
@@ -59,12 +60,12 @@ $gate->setOptions([
 ]);
 ```
 
-### Spot Public
+### Spot Public API V2
 
 Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/public.php)
 
 ```php
-$gate=new GateSpot();
+$gate=new GateSpotV2();
 
 try {
     $result=$gate->publics()->pairs();
@@ -82,9 +83,12 @@ try {
 }
 ```
 
-### Spot Private
+### Spot Private API V2
+
+Private API V2 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot_v2/privates.php)
+
 ```php
-$gate=new GateSpot($key,$secret);
+$gate=new GateSpotV2($key,$secret);
 
 //bargaining transaction
 try {

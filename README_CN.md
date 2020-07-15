@@ -22,6 +22,8 @@
 
 [Bittrex](https://github.com/zhouaini528/bittrex-php)
 
+[Gate](https://github.com/zhouaini528/gate-php)   支持 V2/V4
+
 #### 安装方式
 ```
 composer require linwj/gate
@@ -29,7 +31,8 @@ composer require linwj/gate
 
 支持更多的请求设置
 ```php
-$gate=new Gate();
+$gate=new GateSpot();//默认API V4
+$gate=new GateSpotV2();//默认API V2
 
 //You can set special needs
 $gate->setOptions([
@@ -49,12 +52,12 @@ $gate->setOptions([
 ]);
 ```
 
-### 现货公共API
+### 现货公共API V2
 
-Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/public.php)
+Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot_v2/public.php)
 
 ```php
-$gate=new GateSpot();
+$gate=new GateSpotV2();
 
 try {
     $result=$gate->publics()->pairs();
@@ -72,9 +75,12 @@ try {
 }
 ```
 
-### 现货私有API
+### 现货私有API V2
+
+Private API V2 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot_v2/privates.php)
+
 ```php
-$gate=new GateSpot($key,$secret);
+$gate=new GateSpotV2($key,$secret);
 
 //bargaining transaction
 try {
