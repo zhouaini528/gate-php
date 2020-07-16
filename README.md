@@ -64,7 +64,7 @@ $gate->setOptions([
 
 
 
-###Market API V4
+### Market API V4
 
 Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/market.php)
 
@@ -104,7 +104,7 @@ try {
 }
 ```
 
-###Order API V4
+### Order API V4
 
 Order API V4 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/order.php)
 

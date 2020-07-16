@@ -20,11 +20,10 @@ class GateSpot
     
     protected $options=[];
     
-    function __construct(string $key='',string $secret='',string $passphrase='',string $host='https://api.gateio.ws'){
+    function __construct(string $key='',string $secret='',string $host='https://api.gateio.ws'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
-        $this->passphrase=$passphrase;
     }
     
     /**
@@ -34,7 +33,6 @@ class GateSpot
         return [
             'key'=>$this->key,
             'secret'=>$this->secret,
-            'passphrase'=>$this->passphrase,
             'host'=>$this->host,
             'options'=>$this->options,
             'vision'=>'v4',

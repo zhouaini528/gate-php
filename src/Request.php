@@ -36,7 +36,6 @@ class Request
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->passphrase = $data['passphrase'] ?? '';
         $this->host=$data['host'] ?? '';
         
         $this->options=$data['options'] ?? [];

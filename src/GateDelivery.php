@@ -5,12 +5,13 @@
 
 namespace Lin\Gate;
 
+use Lin\Gate\Api\Spot\Account;
+use Lin\Gate\Api\Spot\Currency;
+use Lin\Gate\Api\Spot\Market;
+use Lin\Gate\Api\Spot\My;
+use Lin\Gate\Api\Spot\Order;
 
-
-use Lin\Gate\Api\SpotV2\Publics;
-use Lin\Gate\Api\SpotV2\Privates;
-
-class GateSpotV2
+class GateSpot
 {
     protected $key;
     protected $secret;
@@ -19,7 +20,7 @@ class GateSpotV2
     
     protected $options=[];
     
-    function __construct(string $key='',string $secret='',string $host='https://api.gateio.la'){
+    function __construct(string $key='',string $secret='',string $host='https://api.gateio.ws'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
@@ -34,7 +35,7 @@ class GateSpotV2
             'secret'=>$this->secret,
             'host'=>$this->host,
             'options'=>$this->options,
-            'vision'=>'v2',
+            'vision'=>'v4',
         ];
     }
     
@@ -48,15 +49,7 @@ class GateSpotV2
     /**
      * 
      * */
-    function publics(){
-        $this->host='https://data.gateio.la';
-        return new Publics($this->init());
-    }
-    
-    /**
-     *
-     * */
-    function privates(){
-        return new Privates($this->init());
+    function account(){
+        return new Account($this->init());
     }
 }

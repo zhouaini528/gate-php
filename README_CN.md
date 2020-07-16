@@ -1,4 +1,4 @@
-### 建议优阅读官方文档
+### 建议优先阅读官方文档
 
 官方文档地址 [API2](https://www.gatecn.io/api2) [API4](https://www.gatecn.io/docs/futures/api/index.html)
 
@@ -62,7 +62,7 @@ $gate->setOptions([
 ]);
 ```
 
-###现货市场数据 API V4
+### 现货市场数据 API V4
 
 Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/market.php)
 
@@ -102,7 +102,7 @@ try {
 }
 ```
 
-###现货订单 API V4
+### 现货订单 API V4
 
 Order API V4 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/order.php)
 
