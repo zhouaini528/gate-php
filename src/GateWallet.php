@@ -5,13 +5,9 @@
 
 namespace Lin\Gate;
 
-use Lin\Gate\Api\Spot\Account;
-use Lin\Gate\Api\Spot\Currency;
-use Lin\Gate\Api\Spot\Market;
-use Lin\Gate\Api\Spot\My;
-use Lin\Gate\Api\Spot\Order;
+use Lin\Gate\Api\Wallet\Wallet;
 
-class GateSpot
+class GateWallet
 {
     protected $key;
     protected $secret;
@@ -49,7 +45,7 @@ class GateSpot
     /**
      * 
      * */
-    function account(){
-        return new Account($this->init());
+    function wallet(){
+        return new Wallet($this->init());
     }
 }
