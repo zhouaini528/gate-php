@@ -67,6 +67,8 @@ $gate->setOptions([
 Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/market.php)
 
 ```php
+$gate=new GateSpot();
+
 try {
     $result=$gate->market()->getTickers();
     print_r($result);
@@ -107,6 +109,8 @@ try {
 Order API V4 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/spot/order.php)
 
 ```php
+$gate=new GateSpot($key,$secret);
+
 //bargaining transaction
 try {
     $result=$gate->order()->post([
@@ -148,6 +152,98 @@ try {
 更多用例请查看 [more](https://github.com/zhouaini528/gate-php/tree/master/tests/spot)
 
 更多API请查看 [more](https://github.com/zhouaini528/gate-php/tree/master/src/Api/Spot)
+
+
+### 交割与永续合约市场 API V4
+
+Market related API [More](https://github.com/zhouaini528/gate-php/blob/master/tests/future/market.php)
+
+```php
+$gate=new GateFuture();
+$gate=new GateDelivery();
+
+try {
+    $result=$gate->market()->getTickers(['settle'=>'btc']);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getOrderBook([
+        'settle'=>'btc',
+        'contract'=>'BTC_USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getTrades([
+        'settle'=>'btc',
+        'contract'=>'BTC_USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getCandlesticks([
+        'settle'=>'btc',
+        'contract'=>'BTC_USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+### 交割与永续合约市场 API V4
+
+Order API V4 [More](https://github.com/zhouaini528/gate-php/blob/master/tests/future/order.php)
+
+```php
+$gate=new GateFuture($key,$secret);
+$gate=new GateDelivery($key,$secret);
+
+//bargaining transaction
+try {
+    $result=$gate->order()->post([
+        //'text'=>'t-xxxxxxxxxx',//custom ID
+        'settle'=>'btc',
+        'contract'=>'BTC_USD',
+        'size'=>'1',
+        'price'=>'4000',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//track the order
+try {
+    $result=$gate->order()->get([
+        'settle'=>'btc',
+        'order_id'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//cancellation of order
+try {
+    $result=$gate->order()->delete([
+        'settle'=>'btc',
+        'order_id'=>'xxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
 
 
 
