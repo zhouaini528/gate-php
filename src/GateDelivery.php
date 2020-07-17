@@ -5,13 +5,14 @@
 
 namespace Lin\Gate;
 
-use Lin\Gate\Api\Spot\Account;
-use Lin\Gate\Api\Spot\Currency;
-use Lin\Gate\Api\Spot\Market;
-use Lin\Gate\Api\Spot\My;
-use Lin\Gate\Api\Spot\Order;
+use Lin\Gate\Api\Delivery\Account;
+use Lin\Gate\Api\Delivery\Contract;
+use Lin\Gate\Api\Delivery\Market;
+use Lin\Gate\Api\Delivery\My;
+use Lin\Gate\Api\Delivery\Order;
+use Lin\Gate\Api\Delivery\Position;
 
-class GateSpot
+class GateDelivery
 {
     protected $key;
     protected $secret;
@@ -51,5 +52,40 @@ class GateSpot
      * */
     function account(){
         return new Account($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function contract(){
+        return new Contract($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function market(){
+        return new Market($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function my(){
+        return new My($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function order(){
+        return new Order($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function position(){
+        return new Position($this->init());
     }
 }

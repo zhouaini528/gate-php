@@ -4,13 +4,13 @@
  * @author lin <465382251@qq.com>
  * */
 
-use Lin\Gate\GateFuture;
+use Lin\Gate\GateDelivery;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$gate=new GateFuture($key,$secret);
+$gate=new GateDelivery($key,$secret);
 
 //You can set special needs
 $gate->setOptions([

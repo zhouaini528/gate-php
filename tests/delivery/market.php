@@ -4,13 +4,12 @@
  * @author lin <465382251@qq.com>
  * */
 
-use Lin\Gate\GateFuture;
+use Lin\Gate\GateDelivery;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
-include 'key_secret.php';
 
-$gate=new GateFuture($key,$secret);
+$gate=new GateDelivery();
 
 //You can set special needs
 $gate->setOptions([
@@ -29,42 +28,41 @@ $gate->setOptions([
     //'verify'=>false,
 ]);
 
-
-//bargaining transaction
 try {
-    $result=$gate->order()->post([
-        //'text'=>'t-xxxxxxxxxx',//custom ID
-        'settle'=>'btc',
-        'contract'=>'BTC_USD',
-        'size'=>'1',
-        'price'=>'4000',
+    $result=$gate->market()->getTickers(['settle'=>'usdt']);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$gate->market()->getOrderBook([
+        'settle'=>'usdt',
+        'contract'=>'BTC_USDT_WEEKLY_'.date('Ymd',time())
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//track the order
 try {
-    $result=$gate->order()->get([
-        'settle'=>'btc',
-        'order_id'=>'xxxxxxxxxx',
+    $result=$gate->market()->getTrades([
+        'settle'=>'usdt',
+        'contract'=>'BTC_USDT_WEEKLY_'.date('Ymd',time())
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//cancellation of order
 try {
-    $result=$gate->order()->delete([
-        'settle'=>'btc',
-        'order_id'=>'xxxxxxxxxx',
+    $result=$gate->market()->getCandlesticks([
+        'settle'=>'usdt',
+        'contract'=>'BTC_USDT_WEEKLY_'.date('Ymd',time())
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
 
 ?>
