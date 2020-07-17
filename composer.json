@@ -1,7 +1,7 @@
 {
     "name": "linwj/gate",
     "type": "library",
-    "description": "Coinbase API Like the official document interface, Support for arbitrary extension.",
+    "description": "Gate API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
     "keywords": ["gate","coinbase","bitmex", "binance", "okex", "huobi","kucoin","kumex"],
     "authors": [
