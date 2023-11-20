@@ -10,6 +10,26 @@ use Lin\Gate\Request;
 class Currency extends Request
 {
     /**
+     *GET /spot/currencies
+     * */
+    public function getCurrencies(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/v4/spot/currencies';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *GET /spot/currencies/{currency}
+     * */
+    public function getCurrencie(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/v4//spot/currencies/'.$data['currency'];
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
      * GET /spot/currency_pairs
      * */
     public function getPairsList(array $data=[]){
@@ -28,4 +48,5 @@ class Currency extends Request
         $this->data=$data;
         return $this->exec();
     }
+
 }
