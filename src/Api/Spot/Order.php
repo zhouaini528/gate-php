@@ -73,8 +73,10 @@ class Order extends Request
      *DELETE /spot/orders/{order_id}
      * */
     public function delete(array $data=[]){
-        $this->type='GET';
+        $this->type='DELETE';
         $this->path='/api/v4/spot/orders/'.$data['order_id'];
+
+        unset($data['order_id']);
         $this->data=$data;
         return $this->exec();
     }

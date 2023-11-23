@@ -16,29 +16,18 @@ $gate=new GateSpot($key,$secret);
 $gate->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
-    //If you are developing locally and need an agent, you can set this
-    //'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
 ]);
 
 
 //bargaining transaction
 try {
     $result=$gate->order()->post([
-        //'text'=>'t-xxxxxxxxxx',//custom ID
+        'text'=>'t-'.microtime(true)*10000,//custom ID
         'currency_pair'=>'BTC_USDT',
         'type'=>'limit',
         'side'=>'buy',
-        'amount'=>'0.1',
-        'price'=>'4000',
+        'amount'=>'0.00015',
+        'price'=>'10000',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -49,7 +38,8 @@ try {
 try {
     $result=$gate->order()->get([
         'currency_pair'=>'BTC_USDT',
-        'order_id'=>'xxxxxxxxxx',
+        'order_id'=>$result['id'],
+        //'order_id'=>'xxxxxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -60,7 +50,8 @@ try {
 try {
     $result=$gate->order()->delete([
         'currency_pair'=>'BTC_USDT',
-        'order_id'=>'xxxxxxxxxx',
+        'order_id'=>$result['id'],
+        //'order_id'=>'xxxxxxxxxx',
     ]);
     print_r($result);
 }catch (\Exception $e){
